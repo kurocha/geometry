@@ -1,4 +1,0 @@
-
-namespace Geometry {
-	void sing();
-}

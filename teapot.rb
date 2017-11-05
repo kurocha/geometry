@@ -32,6 +32,8 @@ define_target 'geometry-library' do |target|
 	target.depends 'Build/Files'
 	target.depends 'Build/Clang'
 	
+	target.depends 'Library/Numerics'
+	
 	target.depends :platform
 	target.depends 'Language/C++14', private: true
 	
@@ -49,36 +51,12 @@ define_target 'geometry-test' do |target|
 		run tests: 'Geometry', source_files: test_root.glob('Geometry/**/*.cpp'), arguments: arguments
 	end
 	
+	target.depends 'Language/C++14', private: true
+	
 	target.depends 'Library/UnitTest'
 	target.depends 'Library/Geometry'
 	
 	target.provides 'Test/Geometry'
-end
-
-define_target 'geometry-executable' do |target|
-	target.build do
-		source_root = target.package.path + 'source'
-		
-		build executable: 'Geometry', source_files: source_root.glob('Geometry.cpp')
-	end
-	
-	target.depends 'Build/Files'
-	target.depends 'Build/Clang'
-	
-	target.depends :platform
-	target.depends 'Language/C++14', private: true
-	
-	target.depends 'Library/Geometry'
-	target.provides 'Executable/Geometry'
-end
-
-define_target 'geometry-run' do |target|
-	target.build do |*arguments|
-		run executable: 'Geometry', arguments: arguments
-	end
-	
-	target.depends 'Executable/Geometry'
-	target.provides 'Run/Geometry'
 end
 
 # Configurations
