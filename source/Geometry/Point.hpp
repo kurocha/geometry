@@ -12,6 +12,8 @@
 
 namespace Geometry
 {
+	using namespace Numerics;
+	
 	// Represents a geometric point in space.
 	template <std::size_t D, typename NumericT>
 	class Point : public Numerics::Vector<D, NumericT>

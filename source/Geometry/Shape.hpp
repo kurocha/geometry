@@ -15,8 +15,6 @@
 
 namespace Geometry
 {
-	using namespace Numerics;
-
 	/// A general abstraction of a shape in D-space with P points. Used as a base class for several shapes. Provides access to points and some general functions.
 	template <std::size_t D, std::size_t P, typename NumericT>
 	struct Shape : public std::array<Point<D, NumericT>, P>

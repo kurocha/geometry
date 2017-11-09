@@ -530,7 +530,7 @@ namespace Geometry
 
 	/// Return an ortographic projection as described by the given Box.
 	template <typename NumericT>
-	Matrix<4, 4, NumericT> orthographic_projection_matrix (const Box<3, NumericT> & box) {
-		return orthographic_projection_matrix(box.min(), box.max());
+	Matrix<4, 4, NumericT> orthographic_projection(const Box<3, NumericT> & box) {
+		return Transforms::orthographic_projection(box.min(), box.max());
 	}
 }
