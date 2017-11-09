@@ -6,7 +6,7 @@ generate-travis:
   :commit: 206b0412bb9888279db6c0758a33cf22e7b47363
   :branch: master
 numerics:
-  :commit: 8a78c49cf483e4805379749a585ee6de2d417607
+  :commit: 3b65fc0417e1498071fb7e7bc91be23d589083c5
   :branch: master
 generate-template:
   :commit: ad0dcfb6da64cc0508b71916b30e1050c82ecea7
