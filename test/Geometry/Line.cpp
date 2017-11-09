@@ -1,7 +1,7 @@
 
 #include <UnitTest/UnitTest.hpp>
 #include <Geometry/Line.hpp>
-#include <Geometry/AlignedBox.hpp>
+#include <Geometry/Box.hpp>
 
 namespace Geometry
 {
@@ -85,7 +85,7 @@ namespace Geometry
 		{"Line Segment Clipping",
 			[](UnitTest::Examiner & examiner) {
 				LineSegment3 segment(-10, 10), result;
-				AlignedBox3 box(-5, 5);
+				Box3 box(-5, 5);
 
 				examiner << "Line segment intersects box" << std::endl;
 				examiner.check(segment.clip(box, result));

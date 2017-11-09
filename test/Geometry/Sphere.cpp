@@ -3,7 +3,7 @@
 
 #include <Geometry/Sphere.hpp>
 #include <Geometry/Line.hpp>
-#include <Geometry/AlignedBox.hpp>
+#include <Geometry/Box.hpp>
 
 namespace Geometry
 {

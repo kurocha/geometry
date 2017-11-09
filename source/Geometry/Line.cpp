@@ -9,7 +9,7 @@
 
 #include "Line.hpp"
 
-#include "AlignedBox.hpp"
+#include "Box.hpp"
 
 namespace Geometry
 {

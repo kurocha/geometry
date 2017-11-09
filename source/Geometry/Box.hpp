@@ -1,5 +1,5 @@
 //
-//  Geometry/AlignedBox.h
+//  Geometry/Box.h
 //  This file is part of the "Euclid" project, and is released under the MIT license.
 //
 //  Created by Samuel Williams on 3/01/07.
@@ -33,7 +33,7 @@ namespace Geometry
 
 	/// An Axis Aligned Bounding Box.
 	template <std::size_t D, typename NumericT = RealT>
-	class AlignedBox
+	class Box
 	{
 	public:
 		typedef Vector<D, NumericT> VectorT;
@@ -51,35 +51,35 @@ namespace Geometry
 		}
 
 	public:
-		AlignedBox()
+		Box()
 		{
 		}
 
-		AlignedBox(const Zero &) : _min(ZERO), _max(ZERO)
+		Box(const Zero &) : _min(ZERO), _max(ZERO)
 		{
 		}
 
-		AlignedBox (const Identity &, const NumericT &n = 1) : _min(ZERO), _max(n)
+		Box (const Identity &, const NumericT &n = 1) : _min(ZERO), _max(n)
 		{
 		}
 
-		AlignedBox (const VectorT & size) : _min(ZERO), _max(size) {
+		Box (const VectorT & size) : _min(ZERO), _max(size) {
 		}
 
-		AlignedBox (const VectorT &min, const VectorT &max) : _min(min), _max(max)
+		Box (const VectorT &min, const VectorT &max) : _min(min), _max(max)
 		{
 		}
 
-		static AlignedBox from_center_and_size (const VectorT &center, const VectorT &size)
+		static Box from_center_and_size (const VectorT &center, const VectorT &size)
 		{
-			AlignedBox box;
+			Box box;
 			box.set_center_and_size(center, size);
 			return box;
 		}
 
-		static AlignedBox from_origin_and_size (const VectorT &origin, const VectorT &size)
+		static Box from_origin_and_size (const VectorT &origin, const VectorT &size)
 		{
-			AlignedBox box;
+			Box box;
 			box.set_origin_and_size(origin, size);
 			return box;
 		}
@@ -100,10 +100,10 @@ namespace Geometry
 
 		// Copy Semantics
 		template <typename M>
-		AlignedBox (const AlignedBox<D, M> &other) : _min(other.min()), _max(other.max()) {}
+		Box (const Box<D, M> &other) : _min(other.min()), _max(other.max()) {}
 
 		template <typename M>
-		AlignedBox & operator= (const AlignedBox<D, M> &other) {
+		Box & operator= (const Box<D, M> &other) {
 			_min = other.min(); _max = other.max();
 		}
 
@@ -114,22 +114,22 @@ namespace Geometry
 		bool is_normal() const {return point(_min) < point(_max);}
 
 		/// Test for exact equivalence
-		bool operator==(const AlignedBox & other) const
+		bool operator==(const Box & other) const
 		{
 			return min() == other.min() && max() == other.max();
 		}
 
-		bool operator!=(const AlignedBox & other) const
+		bool operator!=(const Box & other) const
 		{
 			return !(*this == other);
 		}
 
-		bool operator<(const AlignedBox & other) const
+		bool operator<(const Box & other) const
 		{
 			return _min < other._min && _max < other._max;
 		}
 
-		bool equivalent(const AlignedBox & other) const
+		bool equivalent(const Box & other) const
 		{
 			return min().equivalent(other.min()) && max().equivalent(other.max());
 		}
@@ -196,7 +196,7 @@ namespace Geometry
 		}
 
 		/// Recenter the box, maintaining current size.
-		AlignedBox& recenter_at (const VectorT & center)
+		Box& recenter_at (const VectorT & center)
 		{
 			Vector<D> half_current_size = size() / 2;
 			_min = center - half_current_size;
@@ -206,7 +206,7 @@ namespace Geometry
 		}
 
 		/// Translate the box in-place, maintaining the current size.
-		AlignedBox& translate_by (const VectorT & offset)
+		Box& translate_by (const VectorT & offset)
 		{
 			_min += offset;
 			_max += offset;
@@ -215,8 +215,8 @@ namespace Geometry
 		}
 
 		/// Return a copy of this box, translated by the given offset.
-		AlignedBox translated_by (const VectorT & offset) const {
-			return AlignedBox(*this).translate_by(offset);
+		Box translated_by (const VectorT & offset) const {
+			return Box(*this).translate_by(offset);
 		}
 
 		/// Adjust an individual axis of the box by the given amount
@@ -237,7 +237,7 @@ namespace Geometry
 		}
 
 		/// Expand the box to include the other point.
-		AlignedBox& union_with_point (const VectorT & point) {
+		Box& union_with_point (const VectorT & point) {
 			_min = _min.constrain(point, false);
 			_max = _max.constrain(point, true);
 
@@ -245,7 +245,7 @@ namespace Geometry
 		}
 
 		/// Expand the box to include the other box.
-		AlignedBox& union_with_box (const AlignedBox & other) {
+		Box& union_with_box (const Box & other) {
 			Vector<D> t(ZERO);
 
 			_min = _min.constrain(other.min(), false);
@@ -259,7 +259,7 @@ namespace Geometry
 		/// Case 2: this and other intersect partially; the result is that this will be resized to fit completely within other
 		/// Case 3: this is completely within other; no change will occur.
 		/// @sa intersects_with()
-		AlignedBox& clip_to_box (const AlignedBox & other)
+		Box& clip_to_box (const Box & other)
 		{
 			_min = _min.constrain(other._min, true);
 			_max = _max.constrain(other._max, false);
@@ -268,7 +268,7 @@ namespace Geometry
 		}
 
 		/// Given an orientation, aligns this box within a superbox.
-		void align_within_super_box (const AlignedBox & super_box, const Vector<D> & orientation)
+		void align_within_super_box (const Box & super_box, const Vector<D> & orientation)
 		{
 			for (std::size_t i = 0; i < D; ++i) {
 				RealT width = _max[i] - _min[i];
@@ -282,7 +282,7 @@ namespace Geometry
 		}
 
 		/// Returns the orientation of one box relative to another.
-		Vector<D> orientation_of (const AlignedBox &other) const {
+		Vector<D> orientation_of (const Box &other) const {
 			Vector<D> o;
 
 			for (std::size_t i = 0; i < D; ++i) {
@@ -330,7 +330,7 @@ namespace Geometry
 		/// Tests whether this is completely within other.
 		/// @returns true when this is within other, depending on the includes_edges parameter.
 		/// @sa contains_point()
-		bool contains_box(const AlignedBox<D, NumericT> & other, bool includes_edges = true) const {
+		bool contains_box(const Box<D, NumericT> & other, bool includes_edges = true) const {
 			return contains_point(other.min(), includes_edges) && contains_point(other.max(), includes_edges);
 		}
 
@@ -350,7 +350,7 @@ namespace Geometry
 
 		/// Tests whether this box intersects with another box.
 		/// @returns true when the two boxes overlap, or edges touch, depending on includes_edges parameter.
-		bool intersects_with (const AlignedBox<D, NumericT> & other, bool includes_edges = true) const
+		bool intersects_with (const Box<D, NumericT> & other, bool includes_edges = true) const
 		{
 			for (std::size_t i = 0; i < D; ++i) {
 				if (compare_edge(_max[i], other._min[i], !includes_edges) || compare_edge(other._max[i], _min[i], !includes_edges))
@@ -361,11 +361,11 @@ namespace Geometry
 		}
 
 		// Ordered subtraction methods
-		void subtract_in_order(const AlignedBox & other, const Vector<D, std::size_t> & order) {
+		void subtract_in_order(const Box & other, const Vector<D, std::size_t> & order) {
 			subtract_in_order(other, order, Vector<D, unsigned>(SUBTRACT_SMALLEST));
 		}
 
-		void subtract_in_order(const AlignedBox & other, const Vector<D, std::size_t> & order, const Vector<D, unsigned> & cuts)
+		void subtract_in_order(const Box & other, const Vector<D, std::size_t> & order, const Vector<D, unsigned> & cuts)
 		{
 			// This function is fairly complex, for a good reason - it does a fairly complex geometric operation.
 			// This operation can be summarised as subtracting one box from another. The reason why this is complex is because there are many edge cases to
@@ -451,7 +451,7 @@ namespace Geometry
 		}
 
 		// This just subtracts a single edge from another box, essentially a helper for subtract_using_translation
-		bool subtract_edge(const AlignedBox & other, std::size_t axis, const BoxEdge & edge, const NumericT & offset = 0)
+		bool subtract_edge(const Box & other, std::size_t axis, const BoxEdge & edge, const NumericT & offset = 0)
 		{
 			NumericT a, b, c;
 
@@ -488,13 +488,13 @@ namespace Geometry
 		// approach, the old methods may be more useful.
 		// These methods remove the need for a lot of complex maths, and thus are faster. However, subtract_in_order
 		// Is guaranteed to work in ALL cases.
-		AlignedBox subtract_using_translation(const AlignedBox & from, const AlignedBox & to, const NumericT & offset)
+		Box subtract_using_translation(const Box & from, const Box & to, const NumericT & offset)
 		{
 			VectorT orientation = from.orientation_of(to);
-			AlignedBox translation = from;
+			Box translation = from;
 
 			for (std::size_t i = 0; i < D; ++i) {
-				AlignedBox to_copy = to;
+				Box to_copy = to;
 				bool result = false;
 
 				if (orientation[i] == 0.0) {
@@ -516,21 +516,21 @@ namespace Geometry
 			return translation;
 		}
 		
-		AlignedBox bounding_box() const {
+		Box bounding_box() const {
 			return *this;
 		}
 	};
 
-	typedef AlignedBox<2, RealT> AlignedBox2;
-	typedef AlignedBox<3, RealT> AlignedBox3;
-	typedef AlignedBox<2, int> AlignedBox2i;
-	typedef AlignedBox<3, int> AlignedBox3i;
-	typedef AlignedBox<2, unsigned> AlignedBox2u;
-	typedef AlignedBox<3, unsigned> AlignedBox3u;
+	typedef Box<2, RealT> Box2;
+	typedef Box<3, RealT> Box3;
+	typedef Box<2, int> Box2i;
+	typedef Box<3, int> Box3i;
+	typedef Box<2, unsigned> Box2u;
+	typedef Box<3, unsigned> Box3u;
 
-	/// Return an ortographic projection as described by the given AlignedBox.
+	/// Return an ortographic projection as described by the given Box.
 	template <typename NumericT>
-	Matrix<4, 4, NumericT> orthographic_projection_matrix (const AlignedBox<3, NumericT> & box) {
+	Matrix<4, 4, NumericT> orthographic_projection_matrix (const Box<3, NumericT> & box) {
 		return orthographic_projection_matrix(box.min(), box.max());
 	}
 }

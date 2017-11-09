@@ -1,5 +1,5 @@
 //
-//  Geometry/AlignedBox.cpp
+//  Geometry/Box.cpp
 //  This file is part of the "Euclid" project, and is released under the MIT license.
 //
 //  Created by Samuel Williams on 12/07/08.
@@ -7,12 +7,12 @@
 //
 //
 
-#include "AlignedBox.hpp"
+#include "Box.hpp"
 
 #include "Sphere.hpp"
 
 namespace Geometry
 {
-	template class AlignedBox<2, RealT>;
-	template class AlignedBox<3, RealT>;
+	template class Box<2, RealT>;
+	template class Box<3, RealT>;
 }

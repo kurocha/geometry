@@ -14,7 +14,7 @@
 namespace Geometry
 {
 	template <std::size_t D, typename NumericT>
-	class AlignedBox;
+	class Box;
 	
 	template <std::size_t D, typename NumericT = RealT>
 	class Line {
@@ -87,10 +87,10 @@ namespace Geometry
 		}
 
 		bool intersects_with (const Line<D, NumericT> & other, NumericT & this_time, NumericT & other_time) const;
-		bool intersects_with (const AlignedBox<D, NumericT> & other, NumericT & t1, NumericT & t2) const;
+		bool intersects_with (const Box<D, NumericT> & other, NumericT & t1, NumericT & t2) const;
 
 		/// Helper function for intersection testing where less information is needed.
-		bool intersects_with (const AlignedBox<D, NumericT> & other, VectorT & at) const
+		bool intersects_with (const Box<D, NumericT> & other, VectorT & at) const
 		{
 			NumericT t1, t2;
 
@@ -101,7 +101,7 @@ namespace Geometry
 		}
 
 		///@todo Implement this function
-		/// bool clip_to_box (const AlignedBox<D, NumericT> & other, LineSegment<D, NumericT> & segment) const;
+		/// bool clip_to_box (const Box<D, NumericT> & other, LineSegment<D, NumericT> & segment) const;
 
 		/// Construct a line given two points
 		static Line from (const VectorT & from, const VectorT & to) {
@@ -165,8 +165,8 @@ namespace Geometry
 			return _start.equivalent(_end);
 		}
 
-		bool intersects_with (const AlignedBox<D, NumericT> & other, VectorT & at) const;
-		bool intersects_with (const AlignedBox<D, NumericT> & other, NumericT & t1, NumericT & t2) const;
+		bool intersects_with (const Box<D, NumericT> & other, VectorT & at) const;
+		bool intersects_with (const Box<D, NumericT> & other, NumericT & t1, NumericT & t2) const;
 		bool intersects_with (const LineSegment<D, NumericT> & other, NumericT & this_time, NumericT & other_time) const;
 		bool intersects_with (const LineSegment<D, NumericT> & other, LineSegment<D, NumericT> & overlap) const;
 
@@ -202,7 +202,7 @@ namespace Geometry
 			return Numerics::equivalent(_start, other._start) && Numerics::equivalent(_end, other._end);
 		}
 
-		bool clip(const AlignedBox<D, NumericT> & box, LineSegment & segment) const {
+		bool clip(const Box<D, NumericT> & box, LineSegment & segment) const {
 			NumericT t1, t2;
 
 			if (intersects_with(box, t1, t2)) {
@@ -294,7 +294,7 @@ namespace Geometry
 	}
 
 	template <std::size_t D, typename NumericT>
-	bool Line<D, NumericT>::intersects_with(const AlignedBox<D, NumericT> &a, NumericT & t1, NumericT & t2) const {
+	bool Line<D, NumericT>::intersects_with(const Box<D, NumericT> &a, NumericT & t1, NumericT & t2) const {
 		t1 = (NumericT)0;
 		t2 = (NumericT)1;
 
@@ -316,7 +316,7 @@ namespace Geometry
 	}
 
 	template <std::size_t D, typename NumericT>
-	bool LineSegment<D, NumericT>::intersects_with (const AlignedBox<D, NumericT> &other, VectorT & at) const
+	bool LineSegment<D, NumericT>::intersects_with (const Box<D, NumericT> &other, VectorT & at) const
 	{
 		Vector<D, NumericT> d((end() - start()).normalize());
 		Line<D, NumericT> l(start(), d);
@@ -327,7 +327,7 @@ namespace Geometry
 	}
 
 	template <std::size_t D, typename NumericT>
-	bool LineSegment<D, NumericT>::intersects_with (const AlignedBox<D, NumericT> & other, NumericT & t1, NumericT & t2) const
+	bool LineSegment<D, NumericT>::intersects_with (const Box<D, NumericT> & other, NumericT & t1, NumericT & t2) const
 	{
 		Vector<D, NumericT> d(end() - start());
 		Line<D, NumericT> l(start(), d);

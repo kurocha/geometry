@@ -100,5 +100,5 @@ namespace Geometry
 	// class LineSegment;
 	// 
 	// template <std::size_t D, typename NumericT = RealT>
-	// class AlignedBox;
+	// class Box;
 }

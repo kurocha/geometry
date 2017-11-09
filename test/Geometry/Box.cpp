@@ -1,16 +1,16 @@
 
 #include <UnitTest/UnitTest.hpp>
 
-#include <Geometry/AlignedBox.hpp>
+#include <Geometry/Box.hpp>
 
 namespace Geometry
 {
-	UnitTest::Suite AlignedBoxTestSuite {
-		"Geometry::AlignedBox",
+	UnitTest::Suite BoxTestSuite {
+		"Geometry::Box",
 
 		{"Construction",
 			[](UnitTest::Examiner & examiner) {
-				AlignedBox<2> a(ZERO), b(IDENTITY), c(ZERO);
+				Box<2> a(ZERO), b(IDENTITY), c(ZERO);
 				examiner << "Zero box" << std::endl;
 				examiner.check(a.min().equivalent(0));
 				examiner << "Zero box" << std::endl;
@@ -30,7 +30,7 @@ namespace Geometry
 
 		{"Box-Point Intersection",
 			[](UnitTest::Examiner & examiner) {
-				AlignedBox<3> box1(vector(0.0, 0.0, 0.0), vector(1.0, 1.0, 1.0)),
+				Box<3> box1(vector(0.0, 0.0, 0.0), vector(1.0, 1.0, 1.0)),
 				box2(vector(0.0, 0.0, 0.0), vector(10.0, 10.0, 10.0)),
 				box3(vector(5.0, 5.0, 5.0), vector(10.0, 10.0, 10.0)),
 				box4(vector(9.0, 9.0, 9.0), vector(10.0, 10.0, 10.0)),
@@ -61,7 +61,7 @@ namespace Geometry
 
 		{"Box-Box Intersection",
 			[](UnitTest::Examiner & examiner) {
-				AlignedBox<3> box1(vector(0.0, 0.0, 0.0), vector(1.0, 1.0, 1.0)),
+				Box<3> box1(vector(0.0, 0.0, 0.0), vector(1.0, 1.0, 1.0)),
 					box2(vector(0.0, 0.0, 0.0), vector(10.0, 10.0, 10.0)),
 					box3(vector(5.0, 5.0, 5.0), vector(10.0, 10.0, 10.0));
 
@@ -74,9 +74,9 @@ namespace Geometry
 
 		{"Orientation",
 			[](UnitTest::Examiner & examiner) {
-				AlignedBox<3> box1(vector(0.0, 0.0, 0.0), vector(1.0, 1.0, 1.0));
+				Box<3> box1(vector(0.0, 0.0, 0.0), vector(1.0, 1.0, 1.0));
 				
-				AlignedBox<3> box1a(box1),
+				Box<3> box1a(box1),
 					box2(vector(0.0, 0.0, 0.0), vector(10.0, 10.0, 10.0)),
 					box3(vector(5.0, 5.0, 5.0), vector(10.0, 10.0, 10.0)),
 					box4(vector(9.0, 9.0, 9.0), vector(10.0, 10.0, 10.0));
@@ -91,7 +91,7 @@ namespace Geometry
 				examiner.check(box1.equivalent(box1a));
 
 				// Is this desirable behaviour?
-				AlignedBox<2> o1(ZERO, 10), o2(ZERO, 5), o3(20, 30);
+				Box<2> o1(ZERO, 10), o2(ZERO, 5), o3(20, 30);
 
 				examiner.check(o1.orientation_of(o2) == Vec2(0, 0));
 				examiner.check(o1.orientation_of(o3) == Vec2(1, 1));
@@ -100,7 +100,7 @@ namespace Geometry
 
 		{"Subtraction",
 			[](UnitTest::Examiner & examiner) {
-				AlignedBox<3> box1(vector(0.0, 0.0, 0.0), vector(1.0, 1.0, 1.0)),
+				Box<3> box1(vector(0.0, 0.0, 0.0), vector(1.0, 1.0, 1.0)),
 				box2(vector(0.0, 0.0, 0.0), vector(10.0, 10.0, 10.0)),
 				box3(vector(5.0, 5.0, 5.0), vector(10.0, 10.0, 10.0)),
 				box4(vector(9.0, 9.0, 9.0), vector(10.0, 10.0, 10.0)),
@@ -108,7 +108,7 @@ namespace Geometry
 				box5a(vector(0.0, 0.0, 0.0), vector(5.0, 10.0, 10.0)),
 				box6(vector(5.0, 0.0, 0.0), vector(10.0, 10.0, 10.0));
 				
-				AlignedBox<3> box2a(box2);
+				Box<3> box2a(box2);
 				// Subtract left half
 				box2a.subtract_in_order(box5, vector<unsigned>(0, 1, 2));
 
@@ -116,7 +116,7 @@ namespace Geometry
 				examiner << "Box was subtracted correctly" << std::endl;
 				examiner.check(box2a == box6);
 
-				AlignedBox<3> box2b(box2);
+				Box<3> box2b(box2);
 				// Subtract right half
 				box2b.subtract_in_order(box6, vector<unsigned>(0, 1, 2));
 
@@ -124,11 +124,11 @@ namespace Geometry
 				examiner << "Box was subtracted correctly" << std::endl;
 				examiner.check(box2b == box5a);
 
-				AlignedBox<3> c1(Vec3(0, 0, 0), Vec3(50, 10, 10)),
+				Box<3> c1(Vec3(0, 0, 0), Vec3(50, 10, 10)),
 				c2(Vec3(5, 5, 0), Vec3(15, 15, 15)),
 				c3(Vec3(5, 10, 0), Vec3(15, 15, 15));
 
-				AlignedBox<3> c2a(c2);
+				Box<3> c2a(c2);
 
 				c2a.subtract_in_order(c1, vector<unsigned>(0, 1, 2));
 				examiner << "Box was subtracted correctly" << std::endl;
@@ -140,10 +140,10 @@ namespace Geometry
 		// 	[](UnitTest::Examiner & examiner) {
 		// 		std::stringstream input("{{1,2},{3,4}}"), output;
 		// 		
-		// 		AlignedBox<2, unsigned> box;
+		// 		Box<2, unsigned> box;
 		// 		input >> box;
 		// 		
-		// 		examiner.expect(box) == AlignedBox<2, unsigned>{{1,2},{3,4}};
+		// 		examiner.expect(box) == Box<2, unsigned>{{1,2},{3,4}};
 		// 		
 		// 		output << box;
 		// 		
