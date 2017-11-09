@@ -40,7 +40,7 @@ namespace Geometry
 		}
 	};
 
-	/// Surface normal for any 2-std::size_tal shape:
+	/// Surface normal for any 2-dimentional shape:
 	template <std::size_t P, typename NumericT>
 	Vector<3, NumericT> surface_normal(const Shape<2, P, NumericT> & shape)
 	{
