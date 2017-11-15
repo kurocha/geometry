@@ -11,11 +11,10 @@
 
 #include "Plane.hpp"
 
+#include <Numerics/Matrix.hpp>
+
 namespace Geometry
 {
-	template <std::size_t R, std::size_t D, typename NumericT>
-	class Matrix;
-	
 	template <typename NumericT = RealT>
 	class Frustum {
 	public:
@@ -150,4 +149,6 @@ namespace Geometry
 	bool Frustum<NumericT>::visible(Vec3T planar_normal) {
 		return (_near_center - _far_center).normalize().dot(planar_normal) >= 0.0;
 	}
+	
+	extern template class Frustum<RealT>;
 }

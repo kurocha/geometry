@@ -9,6 +9,7 @@
 
 #include "Plane.hpp"
 
-namespace Geometry {
+namespace Geometry
+{
 	template class Plane<3, RealT>;
 }

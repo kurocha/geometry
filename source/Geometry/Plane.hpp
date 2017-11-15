@@ -14,7 +14,8 @@
 #include "Sphere.hpp"
 #include "Triangle.hpp"
 
-namespace Geometry {
+namespace Geometry
+{
 	template <std::size_t D, typename NumericT>
 	class Plane {
 		static_assert(D >= 3, "Planes only exist in 3-dimentional space or higher!");
@@ -86,11 +87,6 @@ namespace Geometry {
 
 	template <std::size_t D, typename NumericT>
 	std::ostream &operator<< (std::ostream &out, const Plane<D, NumericT> & p);
-
-	typedef Plane<3, RealT> Plane3;
-
-	extern template class Plane<3, RealT>;
-	
 	
 	template <std::size_t D, typename NumericT>
 	bool Plane<D, NumericT>::intersects_with (const Plane<D, NumericT> & other, Line<3, NumericT> & line) const
@@ -138,4 +134,8 @@ namespace Geometry {
 		else
 			return Intersection::OVERLAP;
 	}
+	
+	typedef Plane<3, RealT> Plane3;
+	
+	extern template class Plane<3, RealT>;
 }

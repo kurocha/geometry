@@ -11,7 +11,6 @@
 
 namespace Geometry
 {
-
 	unsigned Quadrants::index_for_partition(const Vec2 &point, const Vec2 &center) {
 		if (point[Y] < center[Y]) {
 			if (point[X] < center[X])

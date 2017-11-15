@@ -5,8 +5,39 @@
 
 namespace Geometry
 {
+	using namespace UnitTest::Expectations;
+	
 	UnitTest::Suite LineTestSuite {
 		"Geometry::Line",
+
+		{"it can detected overlapping segments",
+			[](auto examiner) {
+				Vector<2, int> overlap;
+
+				examiner << "Segments overlap" << std::endl;
+				examiner.expect(segments_intersect({0, 5}, {2, 4}, overlap)).to(be_true);
+				examiner << "Segment overlap is correct" << std::endl;
+				examiner.expect(overlap) == vector(2, 4);
+
+				examiner << "Segments don't overlap" << std::endl;
+				examiner.check(!segments_intersect({0, 5}, {-10, -5}, overlap));
+
+				examiner << "Segments overlap" << std::endl;
+				examiner.check(segments_intersect({0, 5}, {3, 10}, overlap));
+				examiner << "Segment overlap is correct" << std::endl;
+				examiner.expect(overlap) == vector(3, 5);
+
+				examiner << "Segments overlap" << std::endl;
+				examiner.check(segments_intersect({0, 5}, {-5, 10}, overlap));
+				examiner << "Segment overlap is correct" << std::endl;
+				examiner.expect(overlap) == vector(0, 5);
+
+				examiner << "Segments overlap" << std::endl;
+				examiner.check(segments_intersect({0, 5}, {5, 6}, overlap));
+				examiner << "Segment overlap is correct" << std::endl;
+				examiner.expect(overlap) == vector(5, 5);
+			}
+		},
 
 		{"Line Intersections",
 			[](UnitTest::Examiner & examiner) {

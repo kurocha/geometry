@@ -13,7 +13,8 @@
 #include "Plane.hpp"
 #include "Line.hpp"
 
-namespace Geometry {
+namespace Geometry
+{
 	template class Triangle<2>;
 	template class Triangle<3>;
 }

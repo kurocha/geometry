@@ -11,11 +11,8 @@
 
 #include "Sphere.hpp"
 #include "Box.hpp"
-#include "Triangle.hpp"
 
-#include <iostream>
-
-namespace Euclid {
-	namespace Geometry {
-	}
-};
+namespace Geometry
+{
+	template class Frustum<RealT>;
+}
