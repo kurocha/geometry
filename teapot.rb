@@ -23,40 +23,30 @@ end
 # Build Targets
 
 define_target 'geometry-library' do |target|
-	target.build do
+	target.depends 'Library/Numerics', public: true
+	target.depends 'Language/C++14'
+	
+	target.provides 'Library/Geometry'do
 		source_root = target.package.path + 'source'
-		copy headers: source_root.glob('Geometry/**/*.{h,hpp}')
-		build static_library: 'Geometry', source_files: source_root.glob('Geometry/**/*.cpp')
-	end
-	
-	target.depends 'Build/Files'
-	target.depends 'Build/Clang'
-	
-	target.depends 'Library/Numerics'
-	
-	target.depends :platform
-	target.depends 'Language/C++14', private: true
-	
-	target.provides 'Library/Geometry' do
-		append linkflags [
-			->{install_prefix + 'lib/libGeometry.a'},
-		]
+		
+		library_path = build static_library: 'Geometry', source_files: source_root.glob('Geometry/**/*.cpp')
+		
+		append linkflags library_path
+		append header_search_paths source_root
 	end
 end
 
 define_target 'geometry-test' do |target|
-	target.build do |*arguments|
-		test_root = target.package.path + 'test'
-		
-		run tests: 'Geometry', source_files: test_root.glob('Geometry/**/*.cpp'), arguments: arguments
-	end
-	
 	target.depends 'Language/C++14', private: true
 	
 	target.depends 'Library/UnitTest'
 	target.depends 'Library/Geometry'
 	
-	target.provides 'Test/Geometry'
+	target.provides 'Test/Geometry' do |*arguments|
+		test_root = target.package.path + 'test'
+		
+		run tests: 'Geometry', source_files: test_root.glob('Geometry/**/*.cpp'), arguments: arguments
+	end
 end
 
 # Configurations
@@ -76,9 +66,10 @@ define_configuration 'development' do |configuration|
 	
 	configuration.require "generate-project"
 	configuration.require "generate-travis"
-	configuration.require "numerics"
 end
 
 define_configuration "geometry" do |configuration|
 	configuration.public!
+	
+	configuration.require "numerics"
 end
