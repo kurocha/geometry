@@ -37,15 +37,15 @@ define_target 'geometry-library' do |target|
 end
 
 define_target 'geometry-test' do |target|
-	target.depends 'Language/C++14', private: true
-	
 	target.depends 'Library/UnitTest'
+	
+	target.depends 'Language/C++14'
 	target.depends 'Library/Geometry'
 	
 	target.provides 'Test/Geometry' do |*arguments|
 		test_root = target.package.path + 'test'
 		
-		run tests: 'Geometry', source_files: test_root.glob('Geometry/**/*.cpp'), arguments: arguments
+		run source_files: test_root.glob('Geometry/**/*.cpp'), arguments: arguments
 	end
 end
 
