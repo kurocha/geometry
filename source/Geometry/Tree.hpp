@@ -81,7 +81,7 @@ namespace Geometry
 			TopRightFar = 7
 		};
 
-		static PartitionLocation location_for_direction (const Direction &dir);
+		static PartitionLocation location_for_direction(const Direction &dir);
 	};
 
 	// An aligned space partitioning tree.
@@ -361,13 +361,13 @@ namespace Geometry
 		bool _expanding;
 		Partition _top;
 
-		void expand (const unsigned & dir) {
-			if (dir && LEFT) {
-				if (dir && TOP) {
-				} else {
-				}
-			}
-		}
+		// void expand (const unsigned & dir) {
+		// 	if (dir & LEFT) {
+		// 		if (dir & TOP) {
+		// 		} else {
+		// 		}
+		// 	}
+		// }
 
 	public:
 		Tree (const VecT & origin, const VecT & size) : _bounds(origin, origin + size), _expanding(true), _top(this, origin, size) {
