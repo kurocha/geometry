@@ -1,5 +1,5 @@
 //
-//  Euclid/Geomtry/Tree.cpp
+//  Geomtry/Tree.cpp
 //  This file is part of the "Euclid" project, and is released under the MIT license.
 //
 //  Created by Samuel Williams on 2/01/07.
