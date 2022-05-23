@@ -84,9 +84,6 @@ namespace Geometry
 	Vector<D, NumericT> surface_normal (const Plane<D, NumericT> & plane) {
 		return plane.normal();
 	}
-
-	template <std::size_t D, typename NumericT>
-	std::ostream &operator<< (std::ostream &out, const Plane<D, NumericT> & p);
 	
 	template <std::size_t D, typename NumericT>
 	bool Plane<D, NumericT>::intersects_with (const Plane<D, NumericT> & other, Line<3, NumericT> & line) const
