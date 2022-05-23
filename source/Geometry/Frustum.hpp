@@ -72,22 +72,22 @@ namespace Geometry
 		// The constructor used for Plane will normalize its elements automatically
 
 		// Left   (m3 + m0)
-		_planes[LEFT] = convert_plane_from_matrix_eqn(m.at(3, 0)+m.at(0, 0), m.at(3, 1)+m.at(0, 1), m.at(3, 2)+m.at(0, 2), (m.at(3, 3)+m.at(0, 3)));
+		_planes[0] = convert_plane_from_matrix_eqn(m.at(3, 0)+m.at(0, 0), m.at(3, 1)+m.at(0, 1), m.at(3, 2)+m.at(0, 2), (m.at(3, 3)+m.at(0, 3)));
 
 		// Right  (m3 - m0)
-		_planes[RIGHT] = convert_plane_from_matrix_eqn(m.at(3, 0)-m.at(0, 0), m.at(3, 1)-m.at(0, 1), m.at(3, 2)-m.at(0, 2), (m.at(3, 3)-m.at(0, 3)));
+		_planes[1] = convert_plane_from_matrix_eqn(m.at(3, 0)-m.at(0, 0), m.at(3, 1)-m.at(0, 1), m.at(3, 2)-m.at(0, 2), (m.at(3, 3)-m.at(0, 3)));
 
 		// Top    (m3 - m1)
-		_planes[TOP] = convert_plane_from_matrix_eqn(m.at(3, 0)-m.at(1, 0), m.at(3, 1)-m.at(1, 1), m.at(3, 2)-m.at(1, 2), (m.at(3, 3)-m.at(1, 3)));
+		_planes[2] = convert_plane_from_matrix_eqn(m.at(3, 0)-m.at(1, 0), m.at(3, 1)-m.at(1, 1), m.at(3, 2)-m.at(1, 2), (m.at(3, 3)-m.at(1, 3)));
 
 		// Bottom (m3 + m1)
-		_planes[BOTTOM] = convert_plane_from_matrix_eqn(m.at(3, 0)+m.at(1, 0), m.at(3, 1)+m.at(1, 1), m.at(3, 2)+m.at(1, 2), (m.at(3, 3)+m.at(1, 3)));
+		_planes[3] = convert_plane_from_matrix_eqn(m.at(3, 0)+m.at(1, 0), m.at(3, 1)+m.at(1, 1), m.at(3, 2)+m.at(1, 2), (m.at(3, 3)+m.at(1, 3)));
 
 		// Near
-		_planes[NEAR] = convert_plane_from_matrix_eqn(m.at(2, 0), m.at(2, 1), m.at(2, 2), m.at(2, 3));
+		_planes[4] = convert_plane_from_matrix_eqn(m.at(2, 0), m.at(2, 1), m.at(2, 2), m.at(2, 3));
 
 		// Far    (m3 - m2)
-		_planes[FAR] = convert_plane_from_matrix_eqn(m.at(3, 0)-m.at(2, 0), m.at(3, 1)-m.at(2, 1), m.at(3, 2)-m.at(2, 2), (m.at(3, 3)-m.at(2, 3)));
+		_planes[5] = convert_plane_from_matrix_eqn(m.at(3, 0)-m.at(2, 0), m.at(3, 1)-m.at(2, 1), m.at(3, 2)-m.at(2, 2), (m.at(3, 3)-m.at(2, 3)));
 
 		// Calculate object-space points for box coordinates:
 		Box<3, NumericT> clip_box(-1, 1);
