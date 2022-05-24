@@ -1,49 +1,46 @@
 ---
+platforms:
+  :commit: 53bfdd34201790980ba8f4c335dbf659d038eb06
+  :branch: master
+unit-test:
+  :commit: 10505017a6360a47b79699c673ee834b5ba73eb5
+  :branch: master
+generate-cpp-class:
+  :commit: b8996bd1404904a737b76d6893fc9f9bf78da540
+  :branch: master
 generate-project:
-  :commit: 0e636b43a6df347fe6a3a2d79e8fa5dc16364964
+  :commit: 2515e20b576c1a7dc5c5d2c1e14dea06ff5159ab
   :branch: master
 generate-travis:
   :commit: 25acb6c2650d6818d1055c33d8e307d3b6be0f74
   :branch: master
 numerics:
-  :commit: 0be882aa164198b0714bcd7595c4485f3bd750bc
-  :branch: master
-generate-template:
-  :commit: ad0dcfb6da64cc0508b71916b30e1050c82ecea7
-  :branch: master
-platforms:
-  :commit: 9b3dc9a1b13108f933146cda6c12a994c5c954a0
-  :branch: master
-unit-test:
-  :commit: bbb5516e223a8260d0982593ac8969922ea0645b
-  :branch: master
-generate-cpp-class:
-  :commit: a7219c511be8af5228c4daf575508c5667108998
+  :commit: 84d827ad4aa08d6da6fcd43100176628c45eaf40
   :branch: master
 variants:
   :commit: f6a26a8ac3a47a23a213cbd15da2183239d394d1
   :branch: master
-platform-darwin-osx:
-  :commit: a28cf3da75b2b63d24a36cc49bd97babac6499cb
-  :branch: master
-platform-darwin-ios:
-  :commit: c81ccc5ee73cb1c6ae31e378148c4cb8c9f8759e
+platform-linux:
+  :commit: 3619b22cfc66fd0691a8e747d1c5d445ac4cb9a6
   :branch: master
 build-clang:
-  :commit: 0a814291bb2a5943b88849d829b59c24e53409e3
+  :commit: 89942e92e5ac6ffb10faa9cd2d4858903bd28d4f
   :branch: master
-build-darwin:
-  :commit: 9f2234a91f84955cd82f2af89efea9734c6475ca
+build-linux:
+  :commit: 1d9e9a5ade9b5817dd9f5c2cb4f5f43883a64c66
   :branch: master
 build-files:
   :commit: 2e5392ef4e171885b621288c7829e5160f1255bf
   :branch: master
+executor-unix:
+  :commit: 36fe76d003e45c97cfb1d9d2726c17a33f28cad5
+  :branch: master
+executor-lldb:
+  :commit: 75f65ccadcf08aaed5694870c31556fbd656427a
+  :branch: master
 streams:
-  :commit: dc8b15f98e04ec3661d530b87d87b072a4d2c997
+  :commit: 2f9141de26e5331ab35fc91c03ab6a60317bbf7c
   :branch: master
-platform-linux:
-  :commit: a1115ce55e978e3c638ebe7bd1a9e5cb5b7cfed4
-  :branch: master
-build-linux:
-  :commit: ed2c7355b3f5f5b91833a759003388a65d82f0d2
+generate-template:
+  :commit: ad0dcfb6da64cc0508b71916b30e1050c82ecea7
   :branch: master
