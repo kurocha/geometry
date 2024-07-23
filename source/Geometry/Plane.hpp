@@ -61,7 +61,7 @@ namespace Geometry
 
 		/// Finds the closed point on a plane to another point
 		VectorT closest_point (const VectorT & point) const {
-			Vec3 at;
+			VectorT at;
 
 			intersects_with(Line<D, NumericT>(point, _normal), at);
 
