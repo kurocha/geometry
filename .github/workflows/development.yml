@@ -23,7 +23,7 @@ jobs:
         ruby-version: ${{matrix.ruby}}
         bundler-cache: true
     
-    - uses: kurocha/setup-cpp@master
+    - uses: kurocha/setup-cpp@v1
     
     - name: Run tests
       timeout-minutes: 5
